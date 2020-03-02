@@ -7,7 +7,7 @@ node {
     stage ('terraform job'){
         withCredentials([file(credentialsId: 'mounaneko', variable: 'FILE')]){
             sh 'terraform init'
-            sh 'terraform plan -out=out.tfstate -var-file=main.tfvars -var-file=FILE'
+            sh 'terraform plan -out=out.tfstate -var-file=main.tfvars -var-file=$FILE'
             sh 'terraform apply out.tfstate'
         }
     }
