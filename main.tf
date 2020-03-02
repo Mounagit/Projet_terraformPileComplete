@@ -18,7 +18,7 @@
 resource "azurerm_subnet" "subnet_PileComplete" {
     name = "${var.name_subnet}"
     resource_group_name = "RG_project"
-    virtual_network_name = "/subscriptions/d16b14ba-bce2-4160-a0e4-9fb07dc070f6/resourceGroups/RG_project/providers/Microsoft.Network/virtualNetworks/Vnet_project"
+    virtual_network_name = "Vnet_project"
     address_prefix = "10.0.2.0/24"
 }
 
@@ -73,7 +73,7 @@ resource "azurerm_network_security_group" "NSG_PileComplete" {
 
       security_rule {
 
-        name                       = "HTTP"
+        name                       = "appli"
         priority                   = 1004
         direction                  = "Inbound"
         access                     = "Allow"
