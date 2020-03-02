@@ -23,10 +23,10 @@
         FROM openjdk
         COPY ./devops-1.0.war .
         CMD ["java","-jar","devops-1.0.war"]
-  #- name: install python docker lib
-  #  pip:
-  #    name: docker
-  #    state: latest
+  - name: install python docker lib
+    pip:
+      name: docker
+      state: latest
   - name: build image docker
     docker_image:
       build: 
