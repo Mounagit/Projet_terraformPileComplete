@@ -127,7 +127,7 @@ resource "azurerm_virtual_machine" "PileComplete" {
         vm_size               = "Standard_B1s"
 
         storage_os_disk {
-            name              = "myOsDisk"
+            name              = "myOsDisk2"
             caching           = "ReadWrite"
             create_option     = "FromImage"
             managed_disk_type = "Standard_LRS"
