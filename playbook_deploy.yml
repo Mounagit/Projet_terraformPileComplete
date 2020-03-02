@@ -46,10 +46,12 @@
   become: yes
   remote_user: MounaNeko2
   tasks:
+  ---
+  # tasks file for docker
   - name: install yum-utils
-    yum:
-      name: yum-utils
-      state: present
+  yum:
+    name: yum-utils
+    state: present
   - name: install device mapper
     yum:
       name: device-mapper-persistent-data
@@ -65,29 +67,14 @@
     yum:
       name: docker-ce,docker-ce-cli,containerd.io
       state: present
-  # tasks file for DEPENDANCES
-  - name: 
-    yum:
-      name: epel-release
-      state: present
-  - name:
-    yum:
-      name: python-pip
-      state: present
-  #- name:
-  #  pip:
-  #    name: docker-py
   - name: start docker
     systemd:
       name: docker
       state: started
       enabled: yes
-  - name: execution docker sans sudo
+  - name: change permissions docker.sock
     shell:
-      cmd: usermod -aG docker MounaNeko2
-  - name: change mode
-    shell:
-      cmd: chmod 777 /var/run/docker.sock
+      cmd: sudo chmod 777 /var/run/docker.sock
 
   - name: install python docker lib
     pip:
