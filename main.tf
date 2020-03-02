@@ -17,8 +17,8 @@
 
 resource "azurerm_subnet" "subnet_PileComplete" {
     name = "${var.name_subnet}"
-    resource_group_name = "${azurerm_resource_group.resource_group_project.name}"
-    virtual_network_name = "${azurerm_virtual_network.AzureVnet.name}"
+    resource_group_name = "RG_project"
+    virtual_network_name = "/subscriptions/d16b14ba-bce2-4160-a0e4-9fb07dc070f6/resourceGroups/RG_project/providers/Microsoft.Network/virtualNetworks/Vnet_project"
     address_prefix = "10.0.2.0/24"
 }
 
@@ -27,7 +27,7 @@ resource "azurerm_subnet" "subnet_PileComplete" {
 resource "azurerm_network_security_group" "NSG_PileComplete" {
     name = "${var.name_NSG}"
     location = "${var.location}"
-    resource_group_name = "${azurerm_resource_group.resource_group_project.name}"
+    resource_group_name = "RG_project"
     
     security_rule {
         name                       = "SSH"
@@ -93,7 +93,7 @@ resource "azurerm_network_security_group" "NSG_PileComplete" {
 resource "azurerm_public_ip" "IP_PileComplete" {
     name                         = "${var.nameIPpub}"
     location                     = "${var.location}"
-    resource_group_name          = "${azurerm_resource_group.resource_group_project.name}"
+    resource_group_name          = "RG_project"
     allocation_method            = "Static"
     
 }
@@ -103,7 +103,7 @@ resource "azurerm_public_ip" "IP_PileComplete" {
 resource "azurerm_network_interface" "NIC_PileComplete" {
     name                      = "${var.nameNIC}"
     location                  = "${var.location}"
-    resource_group_name       = "${azurerm_resource_group.resource_group_project.name}"
+    resource_group_name       = "RG_project"
     network_security_group_id = "${azurerm_network_security_group.NSG_PileComplete.id}"   
 
     ip_configuration {
@@ -122,7 +122,7 @@ resource "azurerm_virtual_machine" "PileComplete" {
 
         name                  = "${var.name_PileComplete}"
         location              = "${var.location}"
-        resource_group_name   = "${azurerm_resource_group.resource_group_project.name}"
+        resource_group_name   = "RG_project"
         network_interface_ids = ["${azurerm_network_interface.NIC_PileComplete.id}"]
         vm_size               = "Standard_B1s"
 
