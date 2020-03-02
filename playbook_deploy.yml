@@ -77,10 +77,10 @@
     shell:
       cmd: chmod 777 /var/run/docker.sock
 
-  - name: install python docker lib
-    pip:
-      name: docker
-      state: latest
+  #- name: install python docker lib
+  #  pip:
+  #    name: docker
+  #    state: latest
   - name: pull container
     docker_image:
       name: "mounabal/pilecomplete:{{ image }}"
