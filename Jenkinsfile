@@ -38,7 +38,7 @@ node {
                 inventory: 'inventory',
                 playbook: 'playbook_deploy.yml',
                 disableHostKeyCheking: true,
-                extra: "--extra-vars 'image=$image login=$login password=$password'"
+                extras: "--extra-vars 'image=$image login=$login password=$password'"
             )
         }
     }
