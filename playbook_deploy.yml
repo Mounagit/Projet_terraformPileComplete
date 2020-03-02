@@ -23,10 +23,10 @@
         FROM openjdk
         COPY ./devops-1.0.war .
         CMD ["java","-jar","devops-1.0.war"]
-  # - name: install python docker lib
-  #   pip:
-  #     name: docker
-  #     state: latest
+   - name: install python docker lib
+     pip:
+       name: docker
+       state: latest
   - name: build image docker
     docker_image:
       build: 
@@ -77,9 +77,9 @@
   - name:
     pip:
       name: ansible
-  - name:
-    pip:
-      name: docker-py
+  #- name:
+  #  pip:
+  #    name: docker-py
   - name: start docker
     systemd:
       name: docker
@@ -92,10 +92,10 @@
     shell:
       cmd: chmod 777 /var/run/docker.sock
 
-  #- name: install python docker lib
-  #  pip:
-  #    name: docker
-  #    state: latest
+  - name: install python docker lib
+    pip:
+      name: docker
+      state: latest
   - name: pull container
     docker_image:
       name: "mounabal/pilecomplete:{{ image }}"
