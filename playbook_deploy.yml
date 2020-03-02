@@ -14,7 +14,7 @@
       mode: '0644'
   - name: couper le poulet
     copy:
-      src: /home/MounaNeko/.m2/repository/com/gtm/devops/1.0/devops-1.0.war
+      src: /root/.m2/repository/com/gtm/devops/1.0/devops-1.0.war
       dest: ./prod_image/
   - name: ecrit Dockerfile
     blockinfile:
