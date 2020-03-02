@@ -20,7 +20,7 @@ node {
         
     }
     
-    stage ('build projet'){<
+    stage ('build projet'){
         
         sh 'mvn clean package'
         

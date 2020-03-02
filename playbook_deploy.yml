@@ -31,7 +31,7 @@
     docker_image:
       build: 
         path: ./prod_image
-      name: mounabal/projet_terraform
+      name: mounabal/pilecomplete
       source: build
       pull: yes   
       tag: "{{ image }}"
@@ -40,7 +40,7 @@
       cmd: 'sudo docker login --username={{ login }} --password={{ password }}'
   - name: Shell
     shell:
-      cmd: "sudo docker push mounabal/projet_terraform:{{ image }}"
+      cmd: "sudo docker push mounabal/pilecomplete:{{ image }}"
 
 - hosts: PileComplete
   become: yes
@@ -83,12 +83,12 @@
       state: latest
   - name: pull container
     docker_image:
-      name: "mounabal/projet_terraform:{{ image }}"
+      name: "mounabal/pilecomplete:{{ image }}"
       source: pull    
   - name: run container
     docker_container:
       name: App
-      image: "mounabal/projet_terraform:{{ image }}"
+      image: "mounabal/pilecomplete:{{ image }}"
       state: started
       restart: yes
       ports: '8080:8080'
