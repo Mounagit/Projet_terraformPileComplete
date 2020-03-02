@@ -1,0 +1,63 @@
+---
+- hosts: localhost
+  become: true
+  tasks:
+  - name: cree repertoire
+    file:
+      path: ./prod_image
+      state: directory
+      mode: '0755'
+  - name: cree fichier Dockerfile
+    file:
+      path: ./prod_image/Dockerfile
+      state: touch
+      mode: '0644'
+  - name: couper le poulet
+    copy:
+      src: /home/MounaNeko/.m2/repository/com/gtm/devops/1.0/devops-1.0.war
+      dest: ./prod_image/
+  - name: ecrit Dockerfile
+    blockinfile:
+      path: ./prod_image/Dockerfile
+      block: |
+        FROM openjdk
+        COPY ./devops-1.0.war .
+        CMD ["java","-jar","devops-1.0.war"]
+  - name: install python docker lib
+    pip:
+      name: docker
+      state: latest
+  - name: build image docker
+    docker_image:
+      build: 
+        path: ./prod_image
+      name: mounabal/projet_terraform
+      source: build
+      pull: yes   
+      tag: "{{ image }}"
+  - name: Login docker shell
+    shell:
+      cmd: 'sudo docker login --username={{ login }} --password={{ password }}'
+  - name: Shell
+    shell:
+      cmd: "sudo docker push mounabal/projet_terraform:{{ image }}"
+
+- hosts: PileComplete
+  become: yes
+  remote_user: MounaNeko2
+  tasks:
+  - name: install python docker lib
+    pip:
+      name: docker
+      state: latest
+  - name: pull container
+    docker_image:
+      name: "mounabal/projet_terraform:{{ image }}"
+      source: pull    
+  - name: run container
+    docker_container:
+      name: App
+      image: "mounabal/projet_terraform:{{ image }}"
+      state: started
+      restart: yes
+      ports: '8080:8080'
