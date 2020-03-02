@@ -72,7 +72,7 @@
       enabled: yes
   - name: execution docker sans sudo
     shell:
-      cmd: usermod -aG docker vagrant
+      cmd: usermod -aG docker MounaNeko2
   - name: change mode
     shell:
       cmd: chmod 777 /var/run/docker.sock
